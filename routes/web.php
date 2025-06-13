@@ -8,4 +8,4 @@ Route::redirect('/', '/customers');
 
 // 고객 관리용 RESTful 라우트 (모달 UI 사용하므로 create/show 제외)
 Route::resource('customers', CustomerController::class)
-    ->only(['index', 'store', 'edit', 'update', 'destroy']);
+    ->only(['index', 'store', 'edit', 'update', 'destroy', 'show']);

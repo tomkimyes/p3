@@ -45,6 +45,7 @@
                                 <td class="d-none d-md-table-cell">{{ $customer->gender }}</td>
                                 <td class="d-none d-md-table-cell">{{ $customer->name_en }}</td>
                                 <td class="text-center d-none d-md-table-cell">
+                                    <a href="{{ route('customers.show', $customer) }}" class="btn btn-sm btn-outline-info me-1">상세</a>
                                     <button class="btn btn-sm btn-outline-secondary me-1" onclick="openEditModal({{ $customer->id }})">수정</button>
                                     <form action="{{ route('customers.destroy', $customer->id) }}" method="POST" style="display:inline-block;" onsubmit="return confirm('정말 삭제할까요?');">
                                         @csrf

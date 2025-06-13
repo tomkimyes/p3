@@ -27,7 +27,7 @@
     </style>
 </head>
 <body class="d-flex flex-column min-vh-100">
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark border-bottom shadow-sm">
+    <nav class="navbar navbar-expand-lg navbar-dark border-bottom shadow-sm" style="background-color: #2B3035;">
         <div class="container">
             <a class="navbar-brand fw-bold d-flex align-items-center gap-2" href="/" title="홈">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
@@ -50,7 +50,7 @@
     </main>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <footer class="bg-dark text-white text-center text-lg-start mt-auto">
+    <footer class="text-white text-center text-lg-start mt-auto" style="background-color: #393b3d;">
         <div class="container py-4">
             <div class="text-center">
                 <p class="mb-0 small">© {{ date('Y') }} 스카이허니문 여행사 관리 시스템. All rights reserved.</p>
