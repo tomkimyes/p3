@@ -64,7 +64,17 @@ class ConsultationController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $validated = $request->validate([
+            'consulted_at' => 'required|date',
+            'agent' => 'nullable|string|max:255',
+            'status' => 'nullable|string|max:50',
+            'referral_path' => 'nullable|string|max:255',
+        ]);
+
+        $consultation = Consultation::findOrFail($id);
+        $consultation->update($validated);
+
+        return redirect()->route('consultations.index')->with('success', '상담이 수정되었습니다.');
     }
 
     /**

@@ -29,7 +29,9 @@
                     <td>{{ $consultation->referral_path ?? '-' }}</td>
                     <td>
                         <a href="{{ route('consultations.show', $consultation->id) }}" class="btn btn-outline-secondary btn-sm">보기</a>
-                        <a href="{{ route('consultations.edit', $consultation->id) }}" class="btn btn-outline-primary btn-sm">수정</a>
+                        <button type="button" class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#editConsultationModal-{{ $consultation->id }}">
+                            수정
+                        </button>
                         <form action="{{ route('consultations.destroy', $consultation->id) }}" method="POST" class="d-inline"
                               onsubmit="return confirm('정말 삭제하시겠습니까?');">
                             @csrf
@@ -102,4 +104,50 @@
     </form>
   </div>
 </div>
+
 @endsection
+
+<!-- 상담 수정 모달 -->
+@foreach($consultations as $consultation)
+<div class="modal fade" id="editConsultationModal-{{ $consultation->id }}" tabindex="-1" aria-labelledby="editConsultationModalLabel-{{ $consultation->id }}" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <form action="{{ route('consultations.update', $consultation->id) }}" method="POST" class="modal-content">
+      @csrf
+      @method('PUT')
+      <div class="modal-header">
+        <h5 class="modal-title" id="editConsultationModalLabel-{{ $consultation->id }}">상담 수정</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="닫기"></button>
+      </div>
+      <div class="modal-body">
+        <div class="row g-3">
+          <div class="col-md-6">
+            <label class="form-label">상담일</label>
+            <input type="date" name="consulted_at" class="form-control" value="{{ \Carbon\Carbon::parse($consultation->consulted_at)->format('Y-m-d') }}" required>
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">담당자</label>
+            <input type="text" name="agent" class="form-control" value="{{ $consultation->agent }}">
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">진행상태</label>
+            <select name="status" class="form-select">
+              <option value="">선택</option>
+              <option value="상담중" @selected($consultation->status === '상담중')>상담중</option>
+              <option value="계약전환" @selected($consultation->status === '계약전환')>계약전환</option>
+              <option value="보류" @selected($consultation->status === '보류')>보류</option>
+            </select>
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">방문경로</label>
+            <input type="text" name="referral_path" class="form-control" value="{{ $consultation->referral_path }}">
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+        <button type="submit" class="btn btn-primary">수정</button>
+      </div>
+    </form>
+  </div>
+</div>
+@endforeach
